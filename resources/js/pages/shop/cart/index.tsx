@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import ShopLayout from '@/layouts/ShopLayout';
 import { TrashIcon } from '@heroicons/react/24/outline';
@@ -18,7 +17,7 @@ interface CartIndexProps {
 }
 
 export default function CartIndex({ cartItems, cartTotal }: CartIndexProps) {
-    const { data, setData, post, patch, delete: destroy, processing } = useForm({
+    const { setData, patch, delete: destroy, processing } = useForm({
         product_id: '',
         quantity: 1,
     });

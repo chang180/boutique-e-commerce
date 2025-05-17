@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, usePage, router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 
 interface AdminLayoutProps {
     children: React.ReactNode;
@@ -7,7 +7,6 @@ interface AdminLayoutProps {
 }
 
 export default function AdminLayout({ children, footer = '© 2025 精品購物, 版權所有.' }: AdminLayoutProps) {
-    const { auth } = usePage().props as any;
 
     // 處理登出
     const handleLogout = () => {

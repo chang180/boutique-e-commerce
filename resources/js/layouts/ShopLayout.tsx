@@ -9,7 +9,21 @@ interface ShopLayoutProps {
 
 export default function ShopLayout({ children }: ShopLayoutProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const { auth } = usePage().props as any;
+    interface AuthUser {
+        name: string;
+        email: string;
+        // Add other user fields if needed
+    }
+
+    interface PageProps {
+        auth: {
+            user?: AuthUser;
+        };
+        // Add other props if needed
+        [key: string]: unknown;
+    }
+
+    const { auth } = usePage<PageProps>().props;
 
     return (
         <div className="min-h-screen bg-gray-100">
