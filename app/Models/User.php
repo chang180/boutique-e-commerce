@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'phone',
+        'address',
     ];
 
     /**
@@ -43,6 +46,23 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * 獲取用戶的所有訂單
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * 判斷用戶是否為管理員
+     */
+    public function isAdmin()
+    {
+        return $this->is_admin;
     }
 }

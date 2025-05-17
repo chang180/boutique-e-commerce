@@ -33,7 +33,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // 檢查用戶是否為管理員，如果是則重定向到後台，否則重定向到前台
+        $user = Auth::user();
+
+        // 明確指定重定向目標，不使用 intended
+        if ($user && $user->isAdmin()) {
+            // 使用絕對URL，確保重定向到正確的頁面
+            return redirect()->to('/shop/admin');
+        }
+
+        // 非管理員用戶重定向到商店首頁
+        return redirect()->to('/shop');
     }
 
     /**

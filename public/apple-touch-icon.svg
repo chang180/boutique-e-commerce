@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+  <defs>
+    <style>
+      .background {
+        fill: #FFFFFF;
+      }
+      .bag-color {
+        fill: #F4C591;
+      }
+      .handle-color {
+        fill: #65350A;
+      }
+      .accent-color {
+        fill: #65350A;
+      }
+    </style>
+  </defs>
+  <rect class="background" x="0" y="0" width="180" height="180" rx="40" ry="40" />
+  <rect class="bag-color" x="30" y="60" width="120" height="100" rx="10" ry="10" />
+  <path class="handle-color" d="M60,60 L60,40 C60,25 75,15 90,15 C105,15 120,25 120,40 L120,60 M60,60 L120,60" stroke-width="10" fill="none" stroke="#65350A" />
+  <circle class="accent-color" cx="90" cy="110" r="10" />
+</svg>
