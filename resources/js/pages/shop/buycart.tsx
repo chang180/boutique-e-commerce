@@ -34,7 +34,13 @@ export default function BuyCart({ cartItems, total }: CartIndexProps) {
     };
 
     const handleRemoveItem = (id: number) => {
-        destroy(route('shop.buycart.remove', { product_id: id }), {
+        // 修正：將 product_id 作為請求數據傳遞，而不是路由參數
+        setData({
+            product_id: id.toString(),
+            quantity: 1,
+        });
+
+        destroy(route('shop.buycart.remove'), {
             preserveScroll: true,
         });
     };
@@ -45,6 +51,26 @@ export default function BuyCart({ cartItems, total }: CartIndexProps) {
                 preserveScroll: true,
             });
         }
+    };
+
+    // 處理圖片路徑的函數
+    const getImageUrl = (imagePath: string | null) => {
+        if (!imagePath) {
+            return 'https://via.placeholder.com/600x600.png?text=商品圖片';
+        }
+
+        // 如果圖片路徑是完整的 URL（以 http:// 或 https:// 開頭）
+        if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+            return imagePath;
+        }
+
+        // 如果是儲存在 storage 中的圖片
+        if (imagePath.startsWith('storage/')) {
+            return `/${imagePath}`;
+        }
+
+        // 其他情況，假設是相對於 public 目錄的路徑
+        return `/${imagePath}`;
     };
 
     return (
@@ -62,9 +88,15 @@ export default function BuyCart({ cartItems, total }: CartIndexProps) {
                                         <li key={item.id} className="py-6 flex">
                                             <div className="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
                                                 <img
-                                                    src={item.image || 'https://via.placeholder.com/300x300.png?text=商品圖片'}
+                                                    src={getImageUrl(item.image)}
                                                     alt={item.name}
                                                     className="w-full h-full object-center object-cover"
+                                                    onError={(e) => {
+                                                        // 圖片載入失敗時的備用方案
+                                                        const target = e.target as HTMLImageElement;
+                                                        target.onerror = null;
+                                                        target.src = 'https://via.placeholder.com/600x600.png?text=商品圖片';
+                                                    }}
                                                 />
                                             </div>
 
@@ -184,4 +216,4 @@ export default function BuyCart({ cartItems, total }: CartIndexProps) {
             </div>
         </ShopLayout>
     );
-}
+}   
